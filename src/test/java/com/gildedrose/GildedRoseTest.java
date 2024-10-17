@@ -27,6 +27,7 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(0, app.items[0].quality);
     }
+
     @Test
     void normalItemSellInDecreasesByOne() {
         Item[] items = new Item[] { new NormalItem("normal item", 4, 10) };
@@ -34,6 +35,7 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(3, app.items[0].sellIn);
     }
+
     @Test
     void expiredItemsDegradeButNeverGoesLowerThan0() {
         Item[] items = new Item[] { new NormalItem("normal", -1, 0) };
@@ -88,6 +90,7 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(12, app.items[0].quality);
     }
+
     @Test
     void agedBrieQualityImprovesAfterExpirationButDoesNotExceed50() {
         Item[] items = new Item[] { new AgingItem("Aged Brie", -1, 50) };
@@ -95,6 +98,7 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(50, app.items[0].quality);
     }
+    
     //legendary Items Tests
     @Test
     void legendaryItemsNeverDecreasesInQuality() {
@@ -173,6 +177,7 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(50, app.items[0].quality);
     }
+   
     @Test
     void agedBrieQualityImprovesAfterExpirationButDoesNotExceedFifty2() {
         Item[] items = new Item[] { new AgingItem("Aged Brie", -1, 49) };
@@ -187,8 +192,42 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(0, app.items[0].quality);
     }
+    @Test
+    void conjuredItemQualityNeverFallsLowerThanZero() {
+        Item[] items = new Item[] { new ConjuredItem("conjured snake", 5, 0) };
 
-
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
+    }
+    @Test
+    void conjuredItemQualityNeverFallsLowerThanZero2() {
+        Item[] items = new Item[] { new ConjuredItem("conjured snake", 5, 1) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
+    }
+    @Test
+    void expiredConjuredItemQualityNeverFallsLowerThan0() {
+        Item[] items = new Item[] { new TicketItem("conjured snake", 0, 1) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
+    }
+    @Test
+    void conjuredItemDegradesTwiceAsFast() {
+        Item[] items = new Item[] { new ConjuredItem("conjured snake", 5, 10) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(8, app.items[0].quality);
+    }
+    @Test
+    void expiredConjuredItemDegradesTwiceAsFast() {
+        Item[] items = new Item[] { new ConjuredItem("conjured snake", 0, 10) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(6, app.items[0].quality);
+    }
 
 
 }
