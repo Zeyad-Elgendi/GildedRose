@@ -16,5 +16,7 @@ public class NormalItem extends Item implements ItemInterface{
         }else{
             quality -=1;
         }
+        if(quality <0)
+            quality =0;
     }
 }

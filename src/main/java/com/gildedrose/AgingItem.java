@@ -16,6 +16,8 @@ public class AgingItem extends Item implements ItemInterface{
         }else{
             quality ++;
         }
+        if(quality >50)
+            quality =50;
 
     }
 
