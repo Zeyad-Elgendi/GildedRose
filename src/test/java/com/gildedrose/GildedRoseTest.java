@@ -173,6 +173,20 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(50, app.items[0].quality);
     }
+    @Test
+    void agedBrieQualityImprovesAfterExpirationButDoesNotExceedFifty2() {
+        Item[] items = new Item[] { new AgingItem("Aged Brie", -1, 49) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(50, app.items[0].quality);
+    }
+    @Test
+    void expiredQualityIsNeverNegative() {
+        Item[] items = new Item[] { new NormalItem("normal item", -1, 1) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
+    }
 
 
 
